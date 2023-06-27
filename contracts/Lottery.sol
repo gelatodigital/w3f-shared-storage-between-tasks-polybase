@@ -21,14 +21,14 @@ contract Lottery {
     }
 
     function addName(string memory _name) external {
-        emit AddParticipant(msg.sender,_name);
-    }
-
-    function getLastWinner() external view returns (string memory) {
-        return winner;
+        emit AddParticipant(msg.sender, _name);
     }
 
     function updateWinner(string memory _name) external onlyDedicatedMsgSender {
         winner = _name;
+    }
+
+    function getLastWinner() external view returns (string memory) {
+        return winner;
     }
 }
