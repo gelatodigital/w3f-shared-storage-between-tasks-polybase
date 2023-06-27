@@ -85,7 +85,7 @@ And we are all set with our Polybase db!!
 ### Known Issues
 
 At the time of writing the `@polybase/client` is in version "0.6.2",
-There is a bug in the creation of the public key, If this is the case, please delete the first two bytes (first two characters after "0x") from the public key before copying it to the env file.
+There is a bug in the creation of the public key, If this is the case, please delete the first byte (first two characters after "0x") from the public key before copying it to the env file.
 
 &nbsp;
 
