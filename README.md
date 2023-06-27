@@ -7,21 +7,21 @@ We will use Polybase as shared storage.
 
 We will need:
 
-**Lottery Contract**
+**Lottery Contract**:
 A very simple lottery contract with three methods:
 
 - addName(): Where users can request to take part. This method will emit the AddParticipant event with the user address and name
-- updateWinner(): only called by the Web3Function that update the winner
+- updateWinner(): only called by the Web3Function that updates the winner
 - getLastWinner(): returns current winner
 
-**Polybase db**
+**Polybase db**:
 A simple polybase database with the collection `Participants`
 
-**Gelato Web3 Functions**
+**Gelato Web3 Functions**:
 We will create two Web3 Functions tasks:
 
 - readlogs: will fetch the 'AddParticipant' events and update the Polybase db if needed
-- lottery: will every minute query the Participants collection from the Polybase db, randomly pick up a winner and update the Lottery contract
+- lottery: will query the Participants collection from the Polybase db every minute, randomly pick a winner, and update the Lottery contract
 
 ## Demo
 
@@ -84,8 +84,8 @@ And we are all set with our Polybase db!!
 
 ### Known Issues
 
-By the time of writing the `@polybase/client` is in version "0.6.2",
-There isa bug in the creation of the public key, If this is case, please delete the two first byte (first two characters after "0x") from the public key before copying it to the env file.
+At the time of writing the `@polybase/client` is in version "0.6.2",
+There is a bug in the creation of the public key, If this is the case, please delete the first byte (first two characters after "0x") from the public key before copying it to the env file.
 
 &nbsp;
 
@@ -95,7 +95,7 @@ There isa bug in the creation of the public key, If this is case, please delete 
 
 Please copy the Private and Public keys in the .env at the web3 Function level
 
-The readlogs web3 function will every minute read the `AddParticioant() events since the last block processed
+The readlogs web3 function will, every minute, read the `AddParticipant() events since the last block processed
 
 ```
   const topics = [lottery.interface.getEventTopic("AddParticipant")];
@@ -107,7 +107,7 @@ The readlogs web3 function will every minute read the `AddParticioant() events s
       };
 ```
 
-and in the that new Participants are found, we will update the Polybase db
+and in the case that new Participants are found, we will update the Polybase db
 
 ```
   const db = await initDb(PRIVATE_KEY, PUBLIC_KEY);
@@ -130,7 +130,7 @@ and in the that new Participants are found, we will update the Polybase db
 
 ### Lottery
 
-This Web3 fFunction queries the participants from the Polybase dm, randomly select one winner and publish the transaction online to update the winner
+This Web3 Function queries the participants from the Polybase DB, randomly selects one winner and publishes the transaction online to update the winner
 
 Please copy the Private and Public keys in the .env at the web3 Function level
 
