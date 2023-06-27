@@ -1,0 +1,33 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Lottery.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.18;\n\ncontract Lottery {\n    string public winner;\n    mapping(address => string) public participants;\n\n    address public immutable dedicatedMsgSender;\n\n    event AddParticipant(address participant, string name);\n\n    modifier onlyDedicatedMsgSender() {\n        require(\n            msg.sender == dedicatedMsgSender,\n            \"LensGelatoGPT.onlyDedicatedMsgSender\"\n        );\n        _;\n    }\n\n    constructor(address _dedicatedMsgSender) {\n        dedicatedMsgSender = _dedicatedMsgSender;\n    }\n\n    function addName(string memory _name) external {\n        emit AddParticipant(msg.sender,_name);\n        participants[msg.sender] = _name;\n    }\n\n    function getLastWinner() external view returns (string memory) {\n        return winner;\n    }\n\n    function updateWinner(address _winnerAddress) public {\n        winner = participants[_winnerAddress];\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": ["ast"]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
